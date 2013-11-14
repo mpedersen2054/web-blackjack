@@ -1,0 +1,11 @@
+
+<div class="page_correct">
+  <h1> You have $500 <%= session[:player_name] %>. </h1>
+  <h2> How much would you like to bet? </h2>
+
+  <form action='/bet' method='post'>
+    <input type='text' name='current_bet'/>
+    <br />
+    <input type='submit' class='btn'/>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+/* red - #4D161B  */
+/* tan - #D7BDA0  */
+/* ltan- #FCE8D2  */
+/* blue- #2E2F39  */
+
+body {
+  background: url('/images/dimension.png');
+}
+
+.page_correct {
+  margin-top: 15%;
+  text-align: center;
+}
+
+.page_correct h1 {
+  color: #4D161B;
+}
+
+.page_correct h2 {
+  color: #4D161B;
+}
+
+.page_correct  {
+  color: #4D161B;
+}
