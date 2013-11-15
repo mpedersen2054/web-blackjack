@@ -2,3 +2,38 @@
   You have $<%= session[:loot] %>, and your bet is
   $<%= session[:current_bet] %>
 </div>
+
+<div class='well'>
+  <ul>
+    <h4>Dealer's Cards:</h4>
+    <% session[:dealer_hand].each do |card| %>
+      <li><%= card.to_s %></li>
+    <% end %>
+  </ul>
+</div>
+
+<br />
+
+<div class='well'>
+  <ul>
+    <h4>Player's Cards:</h4>
+    <% session[:player_hand].each do |card| %>
+      <li><%= card.to_s %></li>
+    <% end %>
+  </ul>
+</div>
+
+<p>
+<%= session[:player_name] %> your total is: <%= calculate_cards(session[:player_hand]) %>
+
+
+<% if @show_buttons %>
+<form action='/game/player/hit' method='post'>
+  <input type='submit' class='btn' value='hit' />
+</form>
+<form action='/game/player/stay' method='post'>
+  <input type='submit' class='btn' value='stay' />
+</form>
+</p>
+
+<% end %>
