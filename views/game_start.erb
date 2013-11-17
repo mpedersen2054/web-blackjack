@@ -1,10 +1,11 @@
 <div class="page_correct">
-  <h1> What is your name? </h1>
+  <div class="well">
+    <h1> <em>Welcome to Blackjack</em> </h1>
 
-  <form action='/game_start' method='post'>
-    <input type='text' name='player_name'/>
-    <br />
-    <input type='submit' class='btn'/>
-  </form>
-
+    <form action='/game_start' method='post'>
+      <input type='text' name='player_name' class='name_input' placeholder='and your name is...'/>
+      <br />
+      <input type='submit' class='play_button' value='Play!'/>
+    </form>
+  </div>
 </div>

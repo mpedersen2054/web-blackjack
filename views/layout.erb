@@ -4,18 +4,11 @@
     <title>Virtual Blackjack</title>
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/application.css">
+    <link href='http://fonts.googleapis.com/css?family=Cherry+Swash' rel='stylesheet' type='text/css'>
   </head>
-  <body style="padding-top: 50px;">
+  <body style='padding-top: 20px;'>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-            <ul class="nav">
-              <li><a href="/game_start">New Game</a></li>
-            </ul>
-        </div>
-      </div>
-    </div>
+
 
   <div class="container">
     <%if @error %>
@@ -26,5 +19,9 @@
     <% end %>
       <%= yield %>
   </div>
+
+  <% if @play_start %>
+    render footer
+  <% end %>
   </body>
 </html>

@@ -1,38 +1,46 @@
-<div class='page_correct'>
-  You have $<%= session[:loot] %>, and your bet is
-  $<%= session[:current_bet] %>
-</div>
+<% if @play_again %>
+  <p>
+    <strong>Play Again?</strong>
+    <a href='/game' class='btn btn-primary'>Yes</a>
+    <a href='/game_over' class='btn'>No</a>
+  </p>
+<% end %>
 
 <div class='well'>
-  <ul>
-    <h4>Dealer's Cards:</h4>
-    <% session[:dealer_hand].each do |card| %>
-      <li><%= card.to_s %></li>
-    <% end %>
-  </ul>
+  <h4>Dealer's Cards:</h4>
+  <% session[:dealer_hand].each do |card| %>
+    <%= card_image(card) %>
+  <% end %>
 </div>
 
-<br />
+<% if @dealer_hit_button %>
+  <p>
+    <h5>Dealer's total is <%= calculate_cards(session[:dealer_hand]) %> and will hit</h5>
+    <form action='/game/dealer/hit' method='post'>
+      <input type='submit' class='btn' value="Reveal dealer's next card &rarr;" />
+    </form>
+  </p>
+<% end %>
+
 
 <div class='well'>
-  <ul>
-    <h4>Player's Cards:</h4>
-    <% session[:player_hand].each do |card| %>
-      <li><%= card.to_s %></li>
-    <% end %>
-  </ul>
+  <h4><%= session[:player_name] %>'s Cards:</h4>
+  <% session[:player_hand].each do |card| %>
+    <%= card_image(card) %>
+  <% end %>
 </div>
 
 <p>
 <%= session[:player_name] %> your total is: <%= calculate_cards(session[:player_hand]) %>
 
 
-<% if @show_buttons %>
-<form action='/game/player/hit' method='post'>
-  <input type='submit' class='btn' value='hit' />
+<% if @hit_stay_buttons %>
+<form id='stay_button' action='/game/player/hit' method='post'>
+  <input type='submit' class='btn btn-success' value='hit' />
 </form>
-<form action='/game/player/stay' method='post'>
-  <input type='submit' class='btn' value='stay' />
+
+<form id='hit_button' action='/game/player/stay' method='post'>
+  <input type='submit' class='btn btn-danger' value='stay' />
 </form>
 </p>
 
