@@ -18,6 +18,14 @@ body {
   border-top: 10px solid #4D161B;
 }
 
+.alert {
+  font-size: 1.3em;
+}
+
+.success {
+  font-size: 1.3em;
+}
+
 .page_correct {
   margin-top: 15%;
   text-align: center;
