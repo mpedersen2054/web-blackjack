@@ -4,6 +4,9 @@ require 'pry'
 
 set :sessions, true
 
+BLACKJACK_AMT = 21
+DEALER_HIT_MIN = 17
+
 # methods/things defined in helpers are availible to all main.rb
 helpers do
   def calculate_cards(cards) # cards is nested array
@@ -23,7 +26,7 @@ helpers do
 
     # needs ace part of formula
     array.select { |x| x == 'A'}.count.times do
-      break if total <= 21
+      break if total <= BLACKJACK_AMT
       total -= 10
     end
 
@@ -97,15 +100,9 @@ post '/game_start' do
   redirect '/game'
 end
 
-=begin
-post '/bet' do
-  session[:loot] = 500
-  session[:current_bet] = params[:current_bet]
-  redirect '/game'
-end
-=end
-
 get '/game' do
+
+  session[:turn] = session[:player_name]
   # initiate deck
   session[:deck] = []
   ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'].each do |value|
@@ -132,9 +129,9 @@ post '/game/player/hit' do
   session[:player_hand] << session[:deck].pop
   player_total = calculate_cards(session[:player_hand])
 
-  if player_total == 21
+  if player_total == BLACKJACK_AMT
     winner!("You hit blackjack!")
-  elsif player_total > 21
+  elsif player_total > BLACKJACK_AMT
     loser!("You busted!")
   end
 
@@ -148,15 +145,19 @@ post '/game/player/stay' do
 end
 
 get '/game/dealer' do
+
+  session[:turn] = "dealer"
   @hit_stay_buttons = false
+
+  session[:dealer_first] = session[:dealer_hand].last
 
   dealer_total = calculate_cards(session[:dealer_hand])
 
-  if dealer_total == 21
+  if dealer_total == BLACKJACK_AMT
     loser!("Dealer hit Blackjack")
-  elsif dealer_total > 21
+  elsif dealer_total > BLACKJACK_AMT
     winner!("Dealer busted at #{dealer_total}")   
-  elsif dealer_total >= 17
+  elsif dealer_total >= DEALER_HIT_MIN
     redirect '/game/compare_hands'
   else
     @dealer_hit_button = true

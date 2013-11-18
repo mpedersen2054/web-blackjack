@@ -4,10 +4,18 @@
 /* blue- #2E2F39  */
 
 /* sharp-green - #6FF084 */
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
   background: url('/images/dimension.png');
   font-family: 'Cherry Swash', cursive;
-  border-top: 5px solid #4D161B;
+  border-top: 10px solid #4D161B;
 }
 
 .page_correct {
@@ -58,13 +66,8 @@ input.name_input {
 input.play_button {
   position: relative;
   top: 20px;
-  background-color: #6FF084;
   color: white;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+
   font-weight: bold;
   width: 180px;
   height: 40px;
@@ -78,24 +81,6 @@ input.play_button {
 
 .error {
   text-align: center;
-}
-
-.navbar-inner {
-  background-color: #F5F5F5;
-  background-image: none;
-}
-
-.navbar .nav > li > a {
-  background-color: #4D161B;   
-  color: #F5F5F5;
-
-}
-
-/* set hover and focus to lightblue */
-.navbar .nav > li > a:focus,
-.navbar .nav > li > a:hover {
-  background-color: lightblue;
-  color: white;
 }
 
 a.new_game {
@@ -114,6 +99,36 @@ a.new_game {
   margin: 10px;
 
 }
+
+h4.center_name {
+  text-align: center;
+  color: #4D161B;
+  position: relative;
+  bottom: 20px;
+  font-weight: 20px;
+}
+
+#bet_interface form {
+  display: inline;
+  float: right;
+  position: relative;
+  right: 50px;
+}
+
+#bet_interface input {
+  margin: 0 15px;
+  color: white;
+  width: 120px;
+  height: 35px;
+  font-size: 25px;
+  font-family: 'Cherry Swash', cursive;
+}
+
+input.dealer_hit {
+  font-family: 'Cherry Swash', cursive;
+}
+
+
 
 
 
