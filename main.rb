@@ -135,7 +135,7 @@ post '/game/player/hit' do
     loser!("You busted!")
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 post '/game/player/stay' do
