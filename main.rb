@@ -55,21 +55,21 @@ helpers do
   end
 
   def winner!(msg)
-    @success = "<strong>#{session[:player_name]} wins!</strong> #{msg}"
+    @win = "<strong>#{session[:player_name]} wins!</strong> #{msg}"
     @hit_stay_buttons = false
     @play_again = true
     session[:player_money] += session[:player_bet]
   end
 
   def loser!(msg)
-    @error = "<strong>#{session[:player_name]} loses!</strong> #{msg}"
+    @lose = "<strong>#{session[:player_name]} loses!</strong> #{msg}"
     @hit_stay_buttons = false
     @play_again = true
     session[:player_money] -= session[:player_bet]
   end
 
   def tie!(msg)
-    @success = "<strong>It's a tie!</strong> #{msg}"
+    @win = "<strong>It's a tie!</strong> #{msg}"
     @play_again = true
     session[:player_bet]
   end
@@ -191,7 +191,7 @@ get '/game/dealer' do
     @dealer_hit_button = true
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 post '/game/dealer/hit' do
@@ -206,14 +206,14 @@ get '/game/compare_hands' do
   dealer_total = calculate_cards(session[:dealer_hand])
 
   if player_total > dealer_total
-    winner!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you gained #{session[:player_bet]}")
+    winner!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you gained $#{session[:player_bet]}")
   elsif player_total < dealer_total
-    loser!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you lost #{session[:player_bet]}")
+    loser!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you lost $#{session[:player_bet]}")
   else
-    tie!("#{session[:player_name]} and the dealer stayed at #{player_total}, you still have #{session[:player_money]}")
+    tie!("#{session[:player_name]} and the dealer stayed at #{player_total}, you still have $#{session[:player_money]}")
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 get '/game_over' do

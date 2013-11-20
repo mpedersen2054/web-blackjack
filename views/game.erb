@@ -1,5 +1,13 @@
 <div id='game'>
 
+  <%if @lose %>
+    <div class="alert alert-error"><%=@lose%></div>
+  <% end %>
+  <%if @win %>
+    <div class="alert alert-success"><%=@win%></div>
+  <% end %>
+
+
   <% if @play_again %>
     <h3>You now have <span class='green_money'>$<%= session[:player_money] %></span></h3>
     <p>
@@ -24,8 +32,8 @@
 
   <% if @dealer_hit_button %>
     <p>
-      <h5>Dealer's total is <%= calculate_cards(session[:dealer_hand]) %> and will hit</h5>
-      <form action='/game/dealer/hit' method='post'>
+      <h4>Dealer's total is <%= calculate_cards(session[:dealer_hand]) %> and will hit</h4>
+      <form id='dealer_hit_button' action='/game/dealer/hit' method='post'>
         <input type='submit' class='btn btn-success' value="Reveal dealer's next card &rarr;" style="font-family: 'Cherry Swash', cursive;" />
       </form>
     </p>
