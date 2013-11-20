@@ -1,11 +1,11 @@
-
-<div class="page_correct">
-  <h1> You have $500 <%= session[:player_name] %>. </h1>
-  <h2> How much would you like to bet? </h2>
-
+<div id='gamble' class='page_correct well'>
+  <h1>You have <span class='green_money'>$<%= session[:player_money].to_s %></span></h1>
+  <br />
+  <h2>How much would you like to wager <%= session[:player_name] %>?</h2>
+  <br />
   <form action='/bet' method='post'>
-    <input type='text' name='current_bet'/>
+    <input type='text' name='player_bet' placeholder='Enter bet here...' />
     <br />
-    <input type='submit' class='btn'/>
+    <input type='submit' class='btn btn-success' value='Place bet' />
   </form>
 </div>

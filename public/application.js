@@ -17,5 +17,5 @@ $(document).ready(function() {
       $('#game').replaceWith(msg);
     });
     return false;
-  });
+  }); 
 });

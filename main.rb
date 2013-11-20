@@ -58,23 +58,31 @@ helpers do
     @success = "<strong>#{session[:player_name]} wins!</strong> #{msg}"
     @hit_stay_buttons = false
     @play_again = true
+    session[:player_money] += session[:player_bet]
   end
 
   def loser!(msg)
     @error = "<strong>#{session[:player_name]} loses!</strong> #{msg}"
     @hit_stay_buttons = false
     @play_again = true
+    session[:player_money] -= session[:player_bet]
   end
 
   def tie!(msg)
     @success = "<strong>It's a tie!</strong> #{msg}"
     @play_again = true
+    session[:player_bet]
+  end
+
+  def difference(player_money, player_bet)
+    player_money - player_bet
   end
 end
 
 # things in before block run before every single action
 before do
   @hit_stay_buttons = true
+  @bet_set = false
 end
 
 
@@ -97,11 +105,31 @@ post '/game_start' do
   end
 
   session[:player_name] = params[:player_name]
+  session[:player_money] = 1_000
+
+  redirect '/bet'
+end
+
+get '/bet' do
+  session[:player_bet] = nil
+  erb :bet
+end
+
+post '/bet' do
+  if params[:player_bet].to_i == 0 || params[:player_bet].nil?
+    @error = 'Make a bet'
+    halt erb(:bet)
+  elsif params[:player_bet].to_i > session[:player_money]
+    @error = 'You do not have enough funds to make this bet (#{session[:player_money]})'
+  else
+    session[:player_bet] = params[:player_bet].to_i
+  end 
+  
   redirect '/game'
 end
 
 get '/game' do
-
+  
   session[:turn] = session[:player_name]
   # initiate deck
   session[:deck] = []
@@ -178,11 +206,11 @@ get '/game/compare_hands' do
   dealer_total = calculate_cards(session[:dealer_hand])
 
   if player_total > dealer_total
-    winner!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}")
+    winner!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you gained #{session[:player_bet]}")
   elsif player_total < dealer_total
-    loser!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}")
+    loser!("#{session[:player_name]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}, you lost #{session[:player_bet]}")
   else
-    tie!("#{session[:player_name]} and the dealer stayed at #{player_total}")
+    tie!("#{session[:player_name]} and the dealer stayed at #{player_total}, you still have #{session[:player_money]}")
   end
 
   erb :game

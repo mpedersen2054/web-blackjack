@@ -10,6 +10,8 @@
 
 html, body {
   height: 100%;
+  font-family: 'Cherry Swash', cursive;
+  color: #4D161B;
 }
 
 body {
@@ -75,7 +77,6 @@ input.play_button {
   position: relative;
   top: 20px;
   color: white;
-
   font-weight: bold;
   width: 180px;
   height: 40px;
@@ -136,6 +137,13 @@ input.dealer_hit {
   font-family: 'Cherry Swash', cursive;
 }
 
+.green_money {
+  color: #5BB75B;
+}
+
+.btn-success {
+  font-family: 'Cherry Swash', cursive;
+}
 
 
 

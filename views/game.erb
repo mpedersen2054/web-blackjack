@@ -1,28 +1,16 @@
 
 <div id='game'>
+
   <% if @play_again %>
+    <h3>You now have <span class='green_money'>$<%= session[:player_money] %></span></h3>
     <p>
       <strong>Play Again?</strong>
-      <a href='/game' class='btn btn-primary'>Yes</a>
+      <a href='/bet' class='btn btn-success'>Yes</a>
       <a href='/game_over' class='btn'>No</a>
     </p>
+  <% else %>
+    <h3>Total: <span class='green_money'>$<%= session[:player_money].to_s %></span> <span class='pull-right'>Current Bet: <span class='green_money'>$<%= session[:player_bet] %></span></span></h3>
   <% end %>
-
-
-<%
-=begin %>
-  <div id='dealer_area' class='well'>
-    <h4 class='center_name'><span class='total'>Dealer's Cards:<span></h4>
-    <% session[:dealer_hand].each_with_index do |card, i| %>
-      <% if session[:turn] != 'dealer' && i == 0 %>
-        <img src='/images/cards/cover.jpg'>
-      <% else %>
-        <%= card_image(card) %>
-      <% end %>
-    <% end %>
-  </div>
-<%  
-=end %>
 
   <div id='dealer_area' class='well'>
     <h4 class='center_name'><span class='total'>Dealer's Cards:</span></h4>
@@ -39,7 +27,7 @@
     <p>
       <h5>Dealer's total is <%= calculate_cards(session[:dealer_hand]) %> and will hit</h5>
       <form action='/game/dealer/hit' method='post'>
-        <input type='submit' class='btn btn-primary' value="Reveal dealer's next card &rarr;" style="font-family: 'Cherry Swash', cursive;" />
+        <input type='submit' class='btn btn-success' value="Reveal dealer's next card &rarr;" style="font-family: 'Cherry Swash', cursive;" />
       </form>
     </p>
   <% end %>
@@ -57,7 +45,7 @@
     <% if @hit_stay_buttons %>
       <h2>Would you like to Stay, or Hit?
       <form id='hit_button' action='/game/player/hit' method='post'>
-        <input type='submit' class='btn btn-primary' value='Hit' />
+        <input type='submit' class='btn btn-success' value='Hit' />
       </form>
 
       <form id='stay_button' action='/game/player/stay' method='post'>
@@ -65,6 +53,7 @@
       </form></h2>
     <% end %>
   </div>
+
 
 </div>
 
